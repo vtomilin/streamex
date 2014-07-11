@@ -1,0 +1,36 @@
+{
+  "name": "streamex",
+  "version": "0.0.1",
+  "description": "Extensions to node stream subsystem: line stream and buffered stream",
+  "main": "index.js",
+  "scripts": {
+    "gen-docs": "gulp docco",
+    "prepublish": "gulp default docco"
+  },
+  "directories": {
+    "lib": "./lib",
+    "doc": "./doc"
+  },
+  "keywords": [
+    "line stream",
+    "readline",
+    "buffer stream",
+    "memory stream",
+    "mem stream"
+  ],
+  "files": [
+    "doc",
+    "lib",
+    "index.js"
+  ],
+  "author": "Vitaly Tomilin <vitaly.tomilin@gmail.com>",
+  "license": "LGPL",
+  "devDependencies": {
+    "coffee-script": "^1.7.1",
+    "del": "^0.1.1",
+    "docco": "*",
+    "gulp": "^3.8.6",
+    "gulp-changed": "^0.4.0",
+    "gulp-coffee": "^2.0.1"
+  }
+}
