@@ -1,19 +1,20 @@
 STREAM EXTENSIONS LIBRARAY
 ==========================
-*Copyright Vitaly Tomilin, 2014*
+*Copyright Vitaly Tomilin, 2015*
 
 **StreamEx** library contains two classes at the moment: `LineStream` and
-`BufferStream`, both being `stream.Writeable` implementations.
+`BufferStream`, both being `stream` implementations.
 
-**`LineStream`** tokenizes input into lines and for each group of lines emits
-`lines` event, delivering lines in an array.
+**`LineStream`** is a `stream.Transform` implementation, which tokenizes
+input, written or piped to it into lines of text and then for each line emits
+`data` event. It can also be piped from.
 
 ```javascript
     var LineStream = require('streamex').linestream,
         ls = new LineStream();
 
-    ls.on('lines', function(lines) {
-        console.log('Got some lines:', lines.join());
+    ls.on('data', function(line) {
+        console.log('Got some lines:', line);
     }).on('finish', function() {
         console.log('Done reading lines');
     }).on('error', function(error) {
