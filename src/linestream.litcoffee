@@ -2,29 +2,27 @@
     stream = require 'stream'
     os = require 'os'
 
-**LineStream** implements `stream.Writable` such that it recognizes lines of text
-in the input and emits `lines` event, carrying an array of recognized lines of
-text.
+LineStream implements Read/Writable stream such that it recognizes lines of text in
+the input and emits 'data' events for each line.
 
 Normally, you want to pipe your input stream into an instance of `LineStream`,
-while listening for `lines` event on the latter.
+while either listening for `data` event on it or pipe it further.
 
-    class LineStream extends stream.Writable
+    class LineStream extends stream.Transform
 
-Initializes an instance of `LineStream` with options given. See `stream.Writable`
+Initializes an instance of `LineStream` with options given. See `stream.Transform`
 for details.
 
         constructor: (options = {}) ->
+
             @chunkBuffer = new Buffer(LineStream::CHUNKBUF_LEN)
             @lastLine = ''
-            @on 'finish', =>
-                @emit 'lines', [ @lastLine ] if @lastLine
 
             options.highWaterMark = LineStream::CHUNKBUF_LEN
             super options
 
 
-        _write: (chunk, encoding, callback) ->
+        _transform: (chunk, encoding, callback) ->
             lenReqd = chunk.length + @lastLine.length
 
             @chunkBuffer = new Buffer(lenReqd) if @chunkBuffer.length < lenReqd
@@ -38,10 +36,12 @@ for details.
 
             [lines..., @lastLine] = String::split.call(@chunkBuffer.slice(0, lenReqd), os.EOL)
 
-            @emit 'lines', lines
+            callback()
 
-            callback(null)
 
+        _flush: (callback) ->
+            @push @lastLine if @lastLine
+            callback()
 
     LineStream::CHUNKBUF_LEN = 4096
 

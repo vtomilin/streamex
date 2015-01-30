@@ -1,6 +1,6 @@
 {
   "name": "streamex",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Extensions to node stream subsystem: line stream and buffered stream",
   "main": "index.js",
   "scripts": {
