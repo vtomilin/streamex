@@ -36,6 +36,8 @@ for details.
 
             [lines..., @lastLine] = String::split.call(@chunkBuffer.slice(0, lenReqd), os.EOL)
 
+            @push line for line in lines
+
             callback()
 
 
