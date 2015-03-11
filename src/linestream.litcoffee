@@ -1,6 +1,7 @@
 
     stream = require 'stream'
-    os = require 'os'
+
+    EOL = /[\x0d\x0a]/
 
 LineStream implements Read/Writable stream such that it recognizes lines of text in
 the input and emits 'data' events for each line.
@@ -34,7 +35,7 @@ for details.
             else
                 @chunkBuffer.write(chunk, @lastLine.length)
 
-            [lines..., @lastLine] = String::split.call(@chunkBuffer.slice(0, lenReqd), os.EOL)
+            [lines..., @lastLine] = String::split.call(@chunkBuffer.slice(0, lenReqd), EOL)
 
             @push line for line in lines
 

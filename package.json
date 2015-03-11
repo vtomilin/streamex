@@ -1,11 +1,10 @@
 {
   "name": "streamex",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Extensions to node stream subsystem: line stream and buffered stream",
   "main": "index.js",
   "scripts": {
-    "gen-docs": "gulp docco",
-    "prepublish": "gulp default docco"
+    "gen-docs": "gulp docco"
   },
   "directories": {
     "lib": "./lib",
@@ -19,7 +18,6 @@
     "mem stream"
   ],
   "files": [
-    "doc",
     "lib",
     "index.js"
   ],
